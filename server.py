@@ -2,7 +2,7 @@ from mcp.server.fastmcp import FastMCP
 import httpx
 import os
 
-mcp = FastMCP("weather-server")
+mcp = FastMCP("weather-server", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
 
 GEOCODE_URL = "https://geocoding-api.open-meteo.com/v1/search"
 FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
@@ -57,5 +57,4 @@ async def get_weather(city: str, days: int = 1) -> str:
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    mcp.run(transport="streamable-http", host="0.0.0.0", port=port)
+    mcp.run(transport="streamable-http")
